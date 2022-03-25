@@ -48,7 +48,7 @@ const start = () => {
         poll.option_ids.forEach(element => {
             sum += testPath[index].fractions[element];
         });
-        
+         
         let result = ((sum/100) * +(testPath[index].defaultgrade));
         if(result > -testPath[index].penalty){
             localUserData.testsMarks[0].correctAnswers += +result
