@@ -1,0 +1,23 @@
+{
+  "name": "telegram-bot-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.6.7",
+    "firebase-admin": "^10.0.2",
+    "node-fetch": "^2.6.7",
+    "node-schedule": "^2.0.0",
+    "node-telegram-bot-api": "^0.54.0",
+    "nodemon": "^2.0.13",
+    "xml-obj": "^1.0.3",
+    "xml2js": "^0.4.23"
+  }
+}
