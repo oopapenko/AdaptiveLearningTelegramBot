@@ -39,7 +39,7 @@ const generateQuestion = (test)=>{
 
     var outTest = {     
             arrayOptions: generateArrayOptions(test.answer),
-            question: test.questiontext[0].text[0].slice(3,test.questiontext[0].text[0].length-4),
+            question: `${test.name[0].text[0]}. ${test.questiontext[0].text[0].slice(3,test.questiontext[0].text[0].length-4)}`,
             opts:{
                 'type': 'regular',
                 'is_anonymous': false,
@@ -47,7 +47,8 @@ const generateQuestion = (test)=>{
             },
             fractions: generateAnswerFractions(test.answer),
             defaultgrade: test.defaultgrade,
-            penalty: test.penalty
+            penalty: test.penalty,
+            questionIndex: test.name[0].text[0]
     }      
     return outTest;
           
