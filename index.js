@@ -18,7 +18,6 @@ const testButton = {reply_markup: {
 ]
 }};
 
-
 //new schedule.scheduleJob({rule: `0 0 ${time} * * *` }, async function ()
 //new schedule.scheduleJob({ start: new Date(Date.now() + Number(time) * 1000 * 60), end: new Date(new Date(Date.now() + Number(time) * 1000 * 60 + 1000)), rule: '*/1 * * * * *' }, async function ()
 const sendTime = async (time, msg, text)=> {
