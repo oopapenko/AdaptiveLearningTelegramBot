@@ -51,5 +51,14 @@ module.exports = {
         'verbal' : 'вербальний',
         'video' : 'кінестетичний',
     },
-    
+    nextLectureOptions: {
+        reply_markup: {
+            inline_keyboard: [
+                [{
+                    text: 'Наступна лекція',
+                    callback_data: 'nextLecture'
+                }]
+            ]
+        }
+    },
 }
