@@ -44,13 +44,7 @@ module.exports = {
                 }]
             ]
         }
-    },
-    eduTypes: {
-        'visual' : 'візуальний',
-        'audio' : 'аудіальний',
-        'verbal' : 'вербальний',
-        'video' : 'кінестетичний',
-    },
+    }, 
     nextLectureOptions: {
         reply_markup: {
             inline_keyboard: [
@@ -61,4 +55,30 @@ module.exports = {
             ]
         }
     },
+    // eduTypes: {
+    //     'visual' : 'візуальний',
+    //     'audio' : 'аудіальний',
+    //     'verbal' : 'вербальний',
+    //     'video' : 'кінестетичний',
+    // },
+    eduTypes:[
+        'visual',
+        'audio' ,
+        'verbal',
+        'video' 
+    ],
+    eduTypesPoll:{     
+        arrayOptions:[
+            'візуальний',
+            'аудіальний',
+            'вербальний',
+            'кінестетичний'
+        ],
+        question: "Виберіть бажані типи сприняття зі списку:",
+        opts:{
+            'type': 'regular',
+            'is_anonymous': false,
+            'allows_multiple_answers': true,
+        },
+}  
 }

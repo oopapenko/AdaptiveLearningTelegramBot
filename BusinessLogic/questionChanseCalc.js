@@ -6,23 +6,25 @@ const calculateBasicChances = (userData)=>{
         'audio',
         'verbal',
         'video']
-        lectureTypes.forEach(element => {
+    lectureTypes.forEach(element => {
             lectureMarks[`${element}`]=10;
-        });
+    });
     if(userData.testsMarks==undefined||userData.testsMarks.length<=5){
-        
         return lectureMarks;
     }
-    var countLecture;    
+    var countLecture = {};   
+    lectureTypes.forEach(element => {
+        countLecture[`${element}`] = 0;
+    }); 
     userData.testsMarks.forEach(testResult => {
         countLecture[`${testResult.lectureType}`]++;
-        lectureMarks[`${testResult.lectureType}`]+=testResult.mark/testResult.grade*100
+        lectureMarks[`${testResult.lectureType}`]+=testResult.mark/testResult.grade*100    
     });
-    
     lectureTypes.forEach(element => {
-        lectureMarks[`${element}`]/=countLecture[`${element}`]
+        lectureMarks[`${element}`]/=countLecture[`${element}`]==0?1:countLecture[`${element}`]
     });
     return lectureMarks;
+    
 };
 
 const calculateExtendedChances = (userData)=>{
@@ -34,7 +36,7 @@ const calculateExtendedChances = (userData)=>{
     var chances = calculateBasicChances(userData)
     userData.eduType.forEach(element=>{
         chances[`${element}`] +=50;
-    })
+    })    
     var sum =0;
     lectureTypes.forEach(element => {
         sum+=chances[`${element}`]
@@ -42,8 +44,7 @@ const calculateExtendedChances = (userData)=>{
     var coef=sum/100;
     lectureTypes.forEach(element => {
         chances[`${element}`]/=coef;
-    });
-    console.log(chances);
+    });    
     return chances
 }
 
@@ -57,7 +58,7 @@ const getLectureType = (userData) => {
     const rand = Math.random() * 100;
     var temp=0;
     for (var i = 0; i<=lectureTypes.length;i++){
-        temp+=chances[`${lectureTypes[i]}`] 
+        temp+=chances[`${lectureTypes[i]}`]         
         if(temp>=rand){
             return lectureTypes[i];
         }
