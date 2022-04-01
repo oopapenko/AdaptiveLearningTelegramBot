@@ -61,12 +61,12 @@ module.exports = {
     //     'verbal' : 'вербальний',
     //     'video' : 'кінестетичний',
     // },
-    eduTypes:[
-        'visual',
-        'audio' ,
-        'verbal',
-        'video' 
-    ],
+    eduTypes:{
+        'visual': 'візуальний',
+        'audio': 'аудіальний',
+        'verbal': 'вербальний',
+        'video': 'кінестетичний'
+    },
     eduTypesPoll:{     
         arrayOptions:[
             'візуальний',

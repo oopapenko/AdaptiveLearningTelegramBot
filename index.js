@@ -17,9 +17,7 @@ const testButton = {reply_markup: {
         }]
     ]
 }}; 
-const setEduType = async (type, localUserData) => {
-    
-}
+
 //new schedule.scheduleJob({rule: `0 0 ${time} * * *` }, async function ()
 //new schedule.scheduleJob({ start: new Date(Date.now() + Number(time) * 1000 * 60), end: new Date(new Date(Date.now() + Number(time) * 1000 * 60 + 1000)), rule: '*/1 * * * * *' }, async function ()
 const sendTime = async (time, msg, text)=> {
@@ -75,13 +73,14 @@ const start = () => {
             if(localUserData !== undefined){
                 bot.sendMessage(chatId, `Ви будете отримувати повідомлення о ${localUserData.studyInterval}`)
                 // bot.sendMessage(chatId, `Кількість пройдених тестів ${localUserData.testsMarks.length}, кількість отриманих балів ${(localUserData.testsMarks[0].mark).toFixed(2)}`)
-                return bot.sendMessage(chatId, `Обрані типи сприймання інформації: ${eduTypes[`${localUserData.eduType}`]}`)             
+                return bot.sendMessage(chatId, `Обрані типи сприймання інформації: ${localUserData.eduType}`)             
             }
             return bot.sendMessage(chatId,`Ми про вас нічого не знаємо, пройдіть реєстрацію (/start)`)
         }
 
 
         if(text === '/edutype'){
+                localUserData.eduType = [];
                 setDataToDb(localUserData.userId, localUserData)
                 return bot.sendPoll(localUserData.chatId, 
                     eduTypesPoll.question,
@@ -97,17 +96,15 @@ const start = () => {
     })
 
     bot.on('poll_answer', async poll=>{
-
         let localUserData = await getDataFetch(poll.user.id); 
         if(localUserData.eduType==undefined){   
             localUserData['eduType']=[]
             poll.option_ids.forEach(element => {
-                localUserData['eduType'].push(eduTypes[element])
+                localUserData['eduType'].push(Object.keys(eduTypes)[element])
             });
             setDataToDb(localUserData.userId, localUserData) 
             return 0;
         }
-
         let grade = 0;
         let sum = 0;
         let testLastItem = localUserData.testsMarks.length-1;
@@ -141,9 +138,8 @@ const start = () => {
         localUserData.testsMarks[testLastItem].testAnswers.push(testAnswer)   
 
         if(++index < testPath.length){ 
-
-            setDataToDb(localUserData.userId, localUserData)            
-            return bot.sendPoll(localUserData.chatId, 
+            setDataToDb(localUserData.userId, localUserData)
+            return bot.sendPoll(localUserData.chatId,
                 testPath[index].question,
                 testPath[index].arrayOptions,
                 testPath[index].opts)
@@ -151,7 +147,7 @@ const start = () => {
         
         let buffer = eduTypes;
         let asArray = Object.entries(buffer);
-        let filtered = asArray.filter(([key, value]) => key  !== `${localUserData.eduType}`);
+        let filtered = asArray.filter(([key, value]) => key  !== `${localUserData.currentLectureType}`);
         let lectureTypesOptions = {
             reply_markup: {
                 inline_keyboard: [
@@ -191,7 +187,7 @@ const start = () => {
         setDataToDb(localUserData.userId, localUserData);
         return 0;
     })
-    bot.on('callback_query', async msg =>{        
+    bot.on('callback_query', async msg =>{
         const data = msg.data;
         const userId = msg.from.id;      
         const chatId =msg.message.chat.id;
@@ -212,55 +208,43 @@ const start = () => {
                 }
             )
             setDataToDb(localUserData.userId, localUserData) 
+            bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {})
             await bot.sendPoll(chatId,
                 testPath[0].question,
                 testPath[0].arrayOptions,
                 testPath[0].opts)
         }
 
-        // if(data === 'visual'){
-        //     return setEduType(data, localUserData);
-        // }
-
-        // if(data === 'audio'){
-        //     return setEduType(data, localUserData);
-        // }
-
-        // if(data === 'verbal'){
-        //     return setEduType(data, localUserData);
-        // }
-
-        // if(data === 'video'){
-        //     return setEduType(data, localUserData);
-        // }
-
         if(data === 'lecture_visual'){
             localUserData.currentLectureType = "visual"
             setDataToDb(localUserData.userId, localUserData) 
-            return bot.sendMessage(chatId, `1Прочитайте лекцію -> ${courseStructure.Math[0]['Topic_1'][0]['Lecture_1']['visual']}`, testButton);
+            bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {})
+            return bot.sendMessage(chatId, `1Прочитайте лекцію -> ${courseStructure.Math[0]['Topic_1'][0]['Lecture_1']['visual']}`, testButton);            
         }
 
         if(data === 'lecture_audio'){
             localUserData.currentLectureType = "audio"
             setDataToDb(localUserData.userId, localUserData) 
+            bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {})
             return bot.sendMessage(chatId, `2Прочитайте лекцію -> ${courseStructure.Math[0]['Topic_1'][0]['Lecture_1']['audio']}`, testButton);
         }
 
         if(data === 'lecture_verbal'){
             localUserData.currentLectureType = "verbal"
             setDataToDb(localUserData.userId, localUserData) 
+            bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {})
             return bot.sendMessage(chatId, `3Прочитайте лекцію -> ${courseStructure.Math[0]['Topic_1'][0]['Lecture_1']['verbal']}`, testButton);
         }
 
         if(data === 'lecture_video'){
             localUserData.currentLectureType = "video"
             setDataToDb(localUserData.userId, localUserData) 
+            bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {})
             return bot.sendMessage(chatId, `4Прочитайте лекцію -> ${courseStructure.Math[0]['Topic_1'][0]['Lecture_1']['video']}`, testButton);
         }
         
         if(data === '10год'){
-            const lectureType=`${getLectureType(localUserData)}`
-            console.log(lectureType)
+            const lectureType=`${getLectureType(localUserData)}`            
             const lecturePath = courseStructure.Math[0]['Topic_1'][0]['Lecture_1'][`${lectureType}`];
             // const text = 'Повідолення буде відправлене через 1сек!'
             // await sendTime((1/60), msg, text);
@@ -269,7 +253,7 @@ const start = () => {
             // return bot.deleteMessage(chatId, messageId, form = {});
             localUserData.studyInterval=1/60;
             text =`Прочитайте лекцію -> ${lecturePath}`;
-            localUserData['currentLectureType'] = lectureType
+            localUserData['currentLectureType'] = lectureType;
             setDataToDb(userId, localUserData)
             // bot.sendMessage(chatId, `Прочитайте лекцію -> ${path}`);
             await sendTime(localUserData.studyInterval, msg, text);
