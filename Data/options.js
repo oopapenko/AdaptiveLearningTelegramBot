@@ -31,16 +31,28 @@ module.exports = {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: '10 година',
-                    callback_data: '10год'
+                    text: '8:00 - 10:00',
+                    callback_data: '8-10'
                 }],
                 [{
-                    text: '15 година',
-                    callback_data: '15год'
+                    text: '10:00 - 12:00',
+                    callback_data: '10-12'
                 }],
                 [{
-                    text: '18 година',
-                    callback_data: '18год'
+                    text: '12:00 - 14:00',
+                    callback_data: '12-14'
+                }],
+                [{
+                    text: '14:00 - 16:00',
+                    callback_data: '14-16'
+                }],
+                [{
+                    text: '16:00 - 18:00',
+                    callback_data: '16-18'
+                }],
+                [{
+                    text: '18:00 - 20:00',
+                    callback_data: '18-20'
                 }]
             ]
         }
@@ -81,4 +93,4 @@ module.exports = {
             'allows_multiple_answers': true,
         },
 }  
-}
+};

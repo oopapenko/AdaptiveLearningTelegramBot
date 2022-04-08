@@ -1,4 +1,4 @@
-const {tests} = require("./questionImport")
+const {tests} = require("./questionImport");
 module.exports = {
     courseStructure: {
         'Math': 
@@ -55,6 +55,6 @@ module.exports = {
                     },
             },
     },
-}
+};
 
 

@@ -5,7 +5,7 @@ const calculateBasicChances = (userData)=>{
         'visual',
         'audio',
         'verbal',
-        'video']
+        'video'];
     lectureTypes.forEach(element => {
             lectureMarks[`${element}`]=10;
     });
@@ -18,10 +18,10 @@ const calculateBasicChances = (userData)=>{
     }); 
     userData.testsMarks.forEach(testResult => {
         countLecture[`${testResult.lectureType}`]++;
-        lectureMarks[`${testResult.lectureType}`]+=testResult.mark/testResult.grade*100    
+        lectureMarks[`${testResult.lectureType}`]+=testResult.mark/testResult.grade*100;    
     });
     lectureTypes.forEach(element => {
-        lectureMarks[`${element}`]/=countLecture[`${element}`]==0?1:countLecture[`${element}`]
+        lectureMarks[`${element}`]/=countLecture[`${element}`]==0?1:countLecture[`${element}`];
     });
     return lectureMarks;
     
@@ -32,38 +32,38 @@ const calculateExtendedChances = (userData)=>{
         'visual',
         'audio',
         'verbal',
-        'video']
-    var chances = calculateBasicChances(userData)
+        'video'];
+    var chances = calculateBasicChances(userData);
     userData.eduType.forEach(element=>{
         chances[`${element}`] +=50;
-    })    
+    });
     var sum =0;
     lectureTypes.forEach(element => {
-        sum+=chances[`${element}`]
+        sum+=chances[`${element}`];
     });
     var coef=sum/100;
     lectureTypes.forEach(element => {
         chances[`${element}`]/=coef;
     });    
-    return chances
-}
+    return chances;
+};
 
 const getLectureType = (userData) => {
     let lectureTypes=[
         'visual',
         'audio',
         'verbal',
-        'video']
+        'video'];
     var chances = calculateExtendedChances(userData);
     const rand = Math.random() * 100;
     var temp=0;
     for (var i = 0; i<=lectureTypes.length;i++){
-        temp+=chances[`${lectureTypes[i]}`]         
+        temp+=chances[`${lectureTypes[i]}`];
         if(temp>=rand){
             return lectureTypes[i];
         }
     }
-}
+};
 
 
 module.exports={getLectureType};

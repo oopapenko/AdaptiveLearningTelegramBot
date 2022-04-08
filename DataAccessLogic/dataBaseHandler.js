@@ -30,10 +30,17 @@ const getDataFetch= async(userID) =>{
   const fet = await fetch(url);
   const result= await fet.json();
   // console.log(result)
-  return result
-}
+  return result;
+};
 
-module.exports={setDataToDb,getDataFetch};
+const getAllUsersData = async() => {
+  const url = `https://telegrambot-a5ba3-default-rtdb.europe-west1.firebasedatabase.app/Data/users.json`;
+  const fet = await fetch(url);
+  const result= await fet.json();
+  return result;
+};
+
+module.exports={setDataToDb,getDataFetch, getAllUsersData};
 
 
 
