@@ -102,7 +102,7 @@ const start = () => {
                     text = '/edutype';
                 }
             }
-            bot.sendMessage(chatId, 'Ласкаво просимо до телеграм-боту адаптивного навчання');
+            return bot.sendMessage(chatId, 'Ласкаво просимо до телеграм-боту адаптивного навчання');
         }
 
         if(text === '/info'){  
@@ -113,7 +113,6 @@ const start = () => {
             }
             return bot.sendMessage(chatId,`Ми про вас нічого не знаємо, пройдіть реєстрацію (/start)`);
         }
-
 
         if(text === '/edutype'){
                 localUserData.eduType = [];
@@ -134,14 +133,15 @@ const start = () => {
     bot.on('poll_answer', async poll=>{
         
         let localUserData = await getDataFetch(poll.user.id);
-        await bot.stopPoll(localUserData.chatId, localUserData.lastPoolId);
+        // await bot.stopPoll(localUserData.chatId, localUserData.lastPoolId);
         let testPath = courseStructure.Math[`Topic_${localUserData.currentStage.topic}`][`Lecture_${localUserData.currentStage.lecture}`].Test; 
         if(localUserData.eduType==undefined){   //edu type set
             localUserData.eduType=[];
             poll.option_ids.forEach(element => {
                 localUserData.eduType.push(Object.keys(eduTypes)[element]);
-            });
+            });            
             setDataToDb(localUserData.userId, localUserData);
+            bot.sendMessage(localUserData.chatId, "Тип сприйняття інформації успішно змінено");
             return 0;
         }
         let grade = 0;
@@ -311,40 +311,52 @@ const start = () => {
         }
         
         if(data === '8-10'){
-            localUserData.studyTime.preferedInterval=8;            
+            localUserData.studyTime.preferedInterval=8;       
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {});     
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
         if(data === '10-12'){         
             localUserData.studyTime.preferedInterval=10;
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
         if(data === '12-14'){         
             localUserData.studyTime.preferedInterval=12;
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
         if(data === '14-16'){
             localUserData.studyTime.preferedInterval=14;
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
         if(data === '16-18'){         
             localUserData.studyTime.preferedInterval=16;
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
         if(data === '18-20'){           
             localUserData.studyTime.preferedInterval=18;
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
             text =`Вам надійшла нова лекція`;
-            return sendTime(localUserData.studyInterval, msg, text);
+            sendTime(localUserData.studyInterval, msg, text);
+            return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
     
         if(data === 'nextLecture'){
