@@ -24,8 +24,6 @@ const testButton = {reply_markup: {
     ]
 }}; 
 
-
-
 //new schedule.scheduleJob({rule: `0 0 ${time} * * *` }, async function ()
 //new schedule.scheduleJob({ start: new Date(Date.now() + Number(time) * 1000 * 60), end: new Date(new Date(Date.now() + Number(time) * 1000 * 60 + 1000)), rule: '*/1 * * * * *' }, async function ()
 const sendTime = async (time, userId, text)=> {
@@ -58,7 +56,6 @@ const  createTasks = async() => {
 
 createTasks();
 
-
 const start = () => {
     bot.setMyCommands(commands);
 
@@ -72,7 +69,7 @@ const start = () => {
             text='/start';
         }
         if(text === '/start'){
-            
+            await bot.sendMessage(chatId, 'Ласкаво просимо до телеграм-боту адаптивного навчання');
             if(localUserData == undefined || localUserData == null){
                 const pattern = {
                     userName: msg.from.username,
@@ -93,16 +90,19 @@ const start = () => {
                     language_code: 'ua',
                     
                 };
+            
                 await setDataToDb(userId, pattern);
-                localUserData = pattern;
-                await bot.sendMessage(chatId, 'Ласкаво просимо до телеграм-боту адаптивного навчання');
+                localUserData = pattern;                
                 if(localUserData.eduType == undefined || localUserData.eduType == null || localUserData.eduType.length==0){
                     await bot.sendMessage(chatId, 'Спочатку необхідно пройти тест на тип сприймання інформації');
                     await bot.sendMessage(chatId, 'Натисніть на посилання та пройдіть тест -> https://vark-learn.com/опросник-vark-опросник-по-стратегиям-обу/');
                     text = '/edutype';
                 }
+                else
+                    return 0;
             }
-            return bot.sendMessage(chatId, 'Ласкаво просимо до телеграм-боту адаптивного навчання');
+            else 
+                return 0;
         }
 
         if(text === '/info'){  
@@ -142,6 +142,10 @@ const start = () => {
             });            
             setDataToDb(localUserData.userId, localUserData);
             bot.sendMessage(localUserData.chatId, "Тип сприйняття інформації успішно змінено");
+            if(localUserData.studyTime.preferedInterval==""){
+                return bot.sendMessage(localUserData.chatId, 'Ви вперше почали використовувати нашого чат-бота, тому потрібно також обрати бажаний час отримання навчального матеріалу.', timeIntervalOptions);
+            }
+            
             return 0;
         }
         let grade = 0;
@@ -253,7 +257,7 @@ const start = () => {
         if(data === 'begintest'){
             if(localUserData.testsMarks==undefined)
                 localUserData.testsMarks = [];
-            if(localUserData.testsMarks[localUserData.testsMarks.length-1].testEnd === undefined ){
+            if(localUserData.testsMarks.lenght>0 && localUserData.testsMarks[localUserData.testsMarks.length-1].testEnd === undefined ){
                 return bot.sendMessage(chatId,"Спочатку пройдіть відкритий тест");
             }
             localUserData.testsMarks.push(
@@ -350,7 +354,7 @@ const start = () => {
             sendTime(localUserData.studyInterval, msg, text);
             return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
-        if(data === '18-20'){           
+        if(data === '18-20'){
             localUserData.studyTime.preferedInterval=18;
             await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
             setDataToDb(userId, localUserData);
@@ -358,7 +362,12 @@ const start = () => {
             sendTime(localUserData.studyInterval, msg, text);
             return bot.sendMessage(localUserData.chatId,"Часовий проміжок успішно встановлено");
         }
-    
+        if(data === 'debug'){
+            await bot.deleteMessage(localUserData.userId, msg.message.message_id, form = {}); 
+            setDataToDb(userId, localUserData);
+            text =`Вам надійшла нова лекція`;
+            debugSendTime(1/60, msg, text);
+        }
         if(data === 'nextLecture'){
             
             const lectureType=`${getLectureType(localUserData)}`;

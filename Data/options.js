@@ -53,6 +53,10 @@ module.exports = {
                 [{
                     text: '18:00 - 20:00',
                     callback_data: '18-20'
+                }],
+                [{
+                    text: 'Отримати зараз',
+                    callback_data: 'debug'
                 }]
             ]
         }
