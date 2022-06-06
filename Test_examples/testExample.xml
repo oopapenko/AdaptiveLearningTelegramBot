@@ -3,17 +3,6 @@
 <!-- question: 0  -->
   <question type="category">
     <category>
-      <text>$course$/top/За замовчуванням для Сучасні інформаційно-комунікаційні технології навчання /ПЗ</text>
-    </category>
-    <info format="html">
-      <text></text>
-    </info>
-    <idnumber></idnumber>
-  </question>
-
-<!-- question: 0  -->
-  <question type="category">
-    <category>
       <text>$course$/top/За замовчуванням для Сучасні інформаційно-комунікаційні технології навчання /ПЗ/ОС</text>
     </category>
     <info format="html">

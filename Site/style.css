@@ -1,0 +1,197 @@
+h1{
+    text-align: center;
+    
+    color: #fff;
+    height: 68px;
+    padding-top: 10px;
+    margin-top: 0;
+}
+
+body{
+    margin: 0px;
+}
+.logo{
+    position: absolute;
+}
+.header{
+    background-color: rgb(0 156 167 / 90%);
+    display: flex;
+    justify-content: center;
+    height: 100px;
+}
+
+
+.linear-wipe {
+    background: linear-gradient(-45deg, #9cf0e9, #9cf0e9, rgb(1, 247, 235), rgb(1, 247, 235));
+	background-size: 300%;
+   
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	font-size: 60px;
+	margin: auto 0;
+	text-transform: uppercase;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: animated_text 3s ease-in-out infinite;
+	-moz-animation: animated_text 3s ease-in-out infinite;
+	-webkit-animation: animated_text 3s ease-in-out infinite;
+}
+
+@keyframes animated_text {
+	0% { background-position: 0px 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0px 50%; }
+}
+
+.radioButtons{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.radioBlock{
+    font-size: 32px;   
+}
+
+.content{
+    padding: 60px 40px;
+}
+
+input[type="radio"]:checked+label{
+    border: 3px black solid;
+    border-radius: 15px;
+}
+
+label{
+    padding: 4px 10px;
+    margin: 4px;
+    user-select: none;
+}
+
+input[type="radio"]{
+    display: none;    
+}
+
+
+table{
+    margin-top: 30px;
+    border-collapse: collapse;
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+td,th{
+    padding: 6px;    
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.TestsTable thead td{
+  font-weight: bold;
+}
+
+.TestsTable td:hover{
+  cursor:default;
+}
+.CoursesTable td{
+    color:#009688;
+    font-size:18px;  
+    user-select: none;
+}
+
+.CoursesTable td:hover {
+    cursor: pointer;
+}
+
+.CoursesTable td:first-child {
+    text-decoration: none;
+    cursor: default;
+    font-weight: bold;
+    color:black;    
+    font-size: 20px;
+  }
+
+.TopButtons{
+    margin-left: 15px;
+    color:#009688;
+    font-size:22px;
+
+}
+.TopButtons:hover
+{  
+  cursor: pointer;
+}
+
+.UsersTable td{
+  color:black;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.UsersTable .UserButton:hover{
+  cursor: pointer;
+}
+
+.UsersTable .UserButton{
+  color:#009688;
+  font-size:20px;
+  text-decoration: underline;
+  
+}
+.UsersTable thead td{
+  font-weight: bold;
+  font-size: 20px;
+}
+.UsersTable td:hover{
+  cursor:auto;
+}
+.UsersTable select{
+  border: 0px black;
+}
+.UsersTable option{
+  border: 0px black;
+}
+.LectureRow{
+    transform: translateX(50px);
+}
+.LectureTypes{
+    transform: translateX(100px);
+}
+.LectureFile{
+  transform: translateX(100px);
+}
+
+span{
+    color: #009688;
+}
+
+
+input[type="text"]{
+    border: 0px solid black;
+    font-size: 18px;
+    max-width: 200px;
+    background-color: white;
+    color: black;
+}
+
+.selected{
+  background-color: lightgray;
+}
+
+.CourseSelect{
+  margin-left: 15px;
+  margin-bottom: 30px;
+}
+
+.CourseSelect span{
+  margin-left: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.CourseSelect select{
+  font-size: 20px;
+  border: 0px black solid;
+}
+

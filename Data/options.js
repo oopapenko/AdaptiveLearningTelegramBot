@@ -71,18 +71,14 @@ module.exports = {
             ]
         }
     },
-    // eduTypes: {
-    //     'visual' : 'візуальний',
-    //     'audio' : 'аудіальний',
-    //     'verbal' : 'вербальний',
-    //     'video' : 'кінестетичний',
-    // },
+
     eduTypes:{
         'visual': 'візуальний',
         'audio': 'аудіальний',
         'verbal': 'вербальний',
         'video': 'кінестетичний'
     },
+    
     eduTypesPoll:{     
         arrayOptions:[
             'візуальний',
@@ -96,5 +92,5 @@ module.exports = {
             'is_anonymous': false,
             'allows_multiple_answers': true,
         },
-}  
+    },    
 };
